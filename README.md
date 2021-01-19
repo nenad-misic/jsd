@@ -10,6 +10,7 @@
 - Napredni *endpoint*-ovi (Nalik JPA)
 - Arhitektura zasnovana na *plugin*-ima
 - Search, filter, pagining, sort kroz query parametre
+- Generisanje komentara
 ## Cound have
 - Dokumentcija generisanog API-ja
 - Izbor tehnologije za backend/frontend aplikaciju
