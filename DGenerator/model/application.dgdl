@@ -1,0 +1,62 @@
+application appl {
+    config {
+        frontend react
+        frontendPort 3000
+        server express
+        serverPort 1337
+        database sqlite
+    }
+    
+
+    entity User { 
+        u_id: integer primaryKey autoincrement,
+        first_name : string required,
+        last_name : string required unique unique unique unique,
+        username : string required min(6) max(30) unique,
+        password : string required min(10) max(30) strongPasswordPattern
+    }
+    entity Role {
+        r_id: integer primaryKey autoincrement,
+        role_name : string required
+    }
+
+    entity Test {
+        id: integer primaryKey autoincrement,
+        test_name: string required,
+        description: string,
+        date: integer required
+    }
+
+    entity Question {
+        id: integer primaryKey autoincrement,
+        points: integer required,
+        content: string required
+    }
+
+    entity Answer {
+        id: integer primaryKey autoincrement,
+        content: string required
+    }
+
+    entity StudentOf {
+        id: integer primaryKey autoincrement,
+        solved: boolean,
+        points: integer,
+        student_state: string default("")
+    }
+
+    entity ProfessorOf {
+        id: integer primaryKey autoincrement
+    }
+
+    entity Domain {
+        id: integer primaryKey autoincrement,
+        name: string required,
+        description: string required
+    }
+
+    entity Problem {
+        id: integer primaryKey autoincrement,
+        name: string required
+    }
+}

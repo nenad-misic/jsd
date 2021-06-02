@@ -1,0 +1,65 @@
+Application:
+    'application' name=ID '{'
+        config=Config
+        entities*=Entity
+    '}'
+;
+
+Config: 
+    'config' '{'
+        configProps*=ConfigProp
+    '}'
+;
+
+
+ConfigProp:
+    configPropName=ConfigPropName value=PropValue
+;
+
+ConfigPropName:
+   'frontendPort' | 'frontend' | 'serverPort' | 'server' | 'database'
+;
+
+PropValue:
+    ID | INT
+;
+
+
+Entity:
+    'entity' name=ID '{'
+        properties*=Property[',']
+    '}'
+;
+
+Property:
+    name=ID ':' type=[SimpleType]  constraints*=Constraint
+;
+
+Constraint:
+    ConcreteParameterizedConstraint | ConcreteNonParameterizedConstraint
+;
+
+
+ParameterizedConstraint: 
+    'parameterizedConstraint' name=ID
+;
+
+ConcreteParameterizedConstraint:
+    parameterizedConstraint=[ParameterizedConstraint] '(' value=Literal ')'
+;
+
+NonParameterizedConstraint:
+    'nonParameterizedConstraint' name=ID
+;
+
+ConcreteNonParameterizedConstraint:
+    nonParameterizedConstraint=[NonParameterizedConstraint]
+;
+
+SimpleType:
+    'type' name=ID
+;
+
+Literal:
+    INT | STRING | BOOL | FLOAT
+;
