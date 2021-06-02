@@ -246,4 +246,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# textX
 srcgen/
+*.dot
