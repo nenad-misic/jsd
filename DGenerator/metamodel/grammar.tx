@@ -2,6 +2,7 @@ Application:
     'application' name=ID '{'
         config=Config
         entities*=Entity
+        relationships*=Relationship
     '}'
 ;
 
@@ -54,6 +55,20 @@ NonParameterizedConstraint:
 
 ConcreteNonParameterizedConstraint:
     nonParameterizedConstraint=[NonParameterizedConstraint]
+;
+
+Relationship:
+    'relationship' relationshipType=RelationshipType '{'
+        source=[Entity] sourceInjectedField=InjectedField? target=[Entity] targetInjectedField=InjectedField?
+    '}'  
+;
+
+InjectedField:
+    '{' fieldName=ID '}'
+;
+
+RelationshipType: 
+    'OneToOne' | 'OneToMany' | 'ManyToMany'
 ;
 
 SimpleType:
