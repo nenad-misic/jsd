@@ -2,24 +2,32 @@ from os.path import exists, dirname, join, abspath
 from os import mkdir
 import sys
 
-
-
 from classes.SimpleType import SimpleType
 from classes.ConcreteNonParameterizedConstraint import ConcreteNonParameterizedConstraint
 from classes.ConcreteParameterizedConstraint import ConcreteParameterizedConstraint
+from classes.Entity import Entity
 from classes.NonParameterizedConstraint import NonParameterizedConstraint
 from classes.ParameterizedConstraint import ParameterizedConstraint
+from classes.Property import Property
+from classes.Relationship import Relationship
+from classes.Application import Application
+from classes.Config import Config
+from classes.ConfigProp import ConfigProp
+from classes.InjectedField import InjectedField
+
+
+from mapper.ApplicationMapper import applicationToDto
 
 from textx import metamodel_from_file
 from textx.export import metamodel_export, model_export
 
+from generator.sqlite.sqlite_generator import SqliteGenerator
 
 this_folder = dirname(__file__)
 model_filename = "model/application.dgdl"
 metamodel_filename = "metamodel/grammar.tx"
 
 def get_entity_mm():
-    
     type_builtins = {
         'integer': SimpleType('integer'),
         'string': SimpleType('string'),
@@ -51,7 +59,14 @@ def get_entity_mm():
                                         ParameterizedConstraint,
                                         NonParameterizedConstraint,
                                         ConcreteParameterizedConstraint, 
-                                        ConcreteNonParameterizedConstraint
+                                        ConcreteNonParameterizedConstraint, 
+                                        Property, 
+                                        Entity, 
+                                        Relationship,
+                                        Config,
+                                        ConfigProp,
+                                        InjectedField,
+                                        Application
                                     ],
                                     builtins=builtins)
 
@@ -60,6 +75,14 @@ def get_entity_mm():
 if __name__ == "__main__":
     entity_mm = get_entity_mm()
     application_model = entity_mm.model_from_file(join(this_folder, model_filename))
+
+
+    srcgen_folder = join(this_folder, 'srcgen')
+    if not exists(srcgen_folder):
+        mkdir(srcgen_folder)
+
+    sqlite_generator = SqliteGenerator(applicationToDto(application_model), srcgen_folder, abspath(model_filename))
+    sqlite_generator.generate_code()
 
     metamodel_export(entity_mm, 'metamodel.dot')
     model_export(application_model, 'model.dot')
