@@ -2,13 +2,19 @@ from os.path import exists, dirname, join, abspath
 from os import mkdir
 import sys
 
-
-
 from classes.SimpleType import SimpleType
 from classes.ConcreteNonParameterizedConstraint import ConcreteNonParameterizedConstraint
 from classes.ConcreteParameterizedConstraint import ConcreteParameterizedConstraint
+from classes.Entity import Entity
 from classes.NonParameterizedConstraint import NonParameterizedConstraint
 from classes.ParameterizedConstraint import ParameterizedConstraint
+from classes.Property import Property
+from classes.Relationship import Relationship
+from classes.Application import Application
+from classes.Config import Config
+from classes.ConfigProp import ConfigProp
+from classes.InjectedField import InjectedField
+
 
 from textx import metamodel_from_file
 from textx.export import metamodel_export, model_export
@@ -19,7 +25,6 @@ model_filename = "model/application.dgdl"
 metamodel_filename = "metamodel/grammar.tx"
 
 def get_entity_mm():
-    
     type_builtins = {
         'integer': SimpleType('integer'),
         'string': SimpleType('string'),
@@ -51,7 +56,14 @@ def get_entity_mm():
                                         ParameterizedConstraint,
                                         NonParameterizedConstraint,
                                         ConcreteParameterizedConstraint, 
-                                        ConcreteNonParameterizedConstraint
+                                        ConcreteNonParameterizedConstraint, 
+                                        Property, 
+                                        Entity, 
+                                        Relationship,
+                                        Config,
+                                        ConfigProp,
+                                        InjectedField,
+                                        Application
                                     ],
                                     builtins=builtins)
 

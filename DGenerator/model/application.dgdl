@@ -7,7 +7,6 @@ application appl {
         database sqlite
     }
     
-
     entity User { 
         u_id: integer primaryKey autoincrement,
         first_name : string required,
@@ -59,4 +58,20 @@ application appl {
         id: integer primaryKey autoincrement,
         name: string required
     }
+
+    relationship ManyToMany { User{role_id} Role{user_id} }
+    relationship OneToMany { Domain Test{domain_id} }
+    relationship OneToMany { Test Question{test_id} }
+    relationship OneToOne { Question{problem_id} Problem }
+    relationship OneToMany { Question Answer{question_id} }
+    relationship ManyToMany { Question{answer_id} Answer{question_id} }
+    relationship OneToMany { User ProfessorOf{u_id} }
+    relationship OneToMany { Test ProfessorOf{test_id} }
+    relationship OneToMany { User StudentOf{u_id} }
+    relationship OneToMany { Test StudentOf{test_id} }
+    relationship ManyToMany { User{answer_id} Answer{u_id} }
+    relationship OneToMany { Domain Problem{domain_id} }
+    relationship ManyToMany { Problem{parent_id} Problem{child_id} }
+
+
 }
