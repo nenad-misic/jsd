@@ -25,7 +25,6 @@ model_filename = "model/application.dgdl"
 metamodel_filename = "metamodel/grammar.tx"
 
 def get_entity_mm():
-    
     type_builtins = {
         'integer': SimpleType('integer'),
         'string': SimpleType('string'),
