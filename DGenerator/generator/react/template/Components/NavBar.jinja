@@ -16,7 +16,7 @@ class NavBar extends Component {
     return (
       <nav className="navbar navbar-expand-lg sticky-top navbar-dark bg-primary">
         <Link className="navbar-brand" to="/">
-          Application
+          {{application.configObject.baseName}}
         </Link>
   
         <button className="navbar-toggler border" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">

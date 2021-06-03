@@ -18,7 +18,7 @@ ConfigProp:
 ;
 
 ConfigPropName:
-   'frontendPort' | 'frontend' | 'serverPort' | 'server' | 'database'
+   'baseName' | 'frontendPort' | 'frontend' | 'serverPort' | 'server' | 'database'
 ;
 
 PropValue:
