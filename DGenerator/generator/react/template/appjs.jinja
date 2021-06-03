@@ -1,0 +1,23 @@
+import React, { Component } from 'react';
+import {Route} from 'react-router-dom';
+import NavBar from './NavBar/NavBar';
+import Welcome from './Welcome/Welcome';
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <NavBar></NavBar>
+        <Route exact path='/' component={Welcome}/>
+
+        {/* Route examples */}
+        {/* <Route exact path='/' component={SomeComponent}/>
+        <Route exact path='/endpointName' component={SomeComponent}/>
+        <Route exact path='/endpointName2/:parameterName' component={SomeComponent2}/> */}
+
+      </div>
+    );
+  }
+}
+
+export default App;

@@ -23,6 +23,7 @@ from textx.export import metamodel_export, model_export
 
 from generator.sqlite.sqlite_generator import SqliteGenerator
 from generator.express.express_generator import ExpressGenerator
+from generator.react.react_generator import ReactGenerator
 
 this_folder = dirname(__file__)
 model_filename = "model/application.dgdl"
@@ -88,6 +89,10 @@ if __name__ == "__main__":
     express_generator = ExpressGenerator(applicationToDto(application_model), srcgen_folder, abspath(model_filename))
     express_generator.generate_code()
 
+
+
+    react_generator = ReactGenerator(applicationToDto(application_model), srcgen_folder, abspath(model_filename))
+    react_generator.generate_code()
 
     metamodel_export(entity_mm, 'metamodel.dot')
     model_export(application_model, 'model.dot')
