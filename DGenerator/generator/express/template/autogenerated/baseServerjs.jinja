@@ -27,7 +27,7 @@ module.exports = () => {
     app.get('/', (req, res, next) => {
         res.sendfile('public/index.html');
     });
-
+    
     app.use(middlewares.error_handler);
 
 
