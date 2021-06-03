@@ -1,5 +1,6 @@
 application appl {
     config {
+        baseName my_application
         frontend react
         frontendPort 3000
         server express
