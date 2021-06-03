@@ -115,6 +115,11 @@ class ReactGenerator(Generator):
         template = jinja_env.get_template('environmentjs.jinja')
         self.generateModelTemplate(template, 'react/src/Environment/environment.js')
 
+        # Generating src/NavBar
+        self.generateFolder('react/src/NavBar')
+        template = jinja_env.get_template('Components/NavBar.jinja')
+        self.generateModelTemplate(template, 'react/src/NavBar/NavBar.js')
+
         # Generating src/Welcome
         self.generateFolder('react/src/Welcome')
         template = jinja_env.get_template('Components/Welcome.jinja')
