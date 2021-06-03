@@ -22,6 +22,7 @@ from textx import metamodel_from_file
 from textx.export import metamodel_export, model_export
 
 from generator.sqlite.sqlite_generator import SqliteGenerator
+from generator.express.express_generator import ExpressGenerator
 from generator.react.react_generator import ReactGenerator
 
 this_folder = dirname(__file__)
@@ -84,6 +85,10 @@ if __name__ == "__main__":
 
     sqlite_generator = SqliteGenerator(applicationToDto(application_model), srcgen_folder, abspath(model_filename))
     sqlite_generator.generate_code()
+    
+    express_generator = ExpressGenerator(applicationToDto(application_model), srcgen_folder, abspath(model_filename))
+    express_generator.generate_code()
+
 
 
     react_generator = ReactGenerator(applicationToDto(application_model), srcgen_folder, abspath(model_filename))
