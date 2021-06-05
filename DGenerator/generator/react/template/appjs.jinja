@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Route} from 'react-router-dom';
 import NavBar from './NavBar/NavBar';
+import { ToastContainer } from 'react-toastify';
 import Welcome from './Welcome/Welcome';
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
         <Route exact path='/endpointName' component={SomeComponent}/>
         <Route exact path='/endpointName2/:parameterName' component={SomeComponent2}/> */}
 
+        <ToastContainer position="bottom-center" autoClose={5000} hideProgressBar newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
       </div>
     );
   }
