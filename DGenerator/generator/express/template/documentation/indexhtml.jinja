@@ -31,6 +31,11 @@
     <div class="container my-5" id="content">
         {# content #}
         <h1 class="m-5">{{application.name}} - Documentation</h1>
+
+        <h3> Entities </h3>
+        {% for entity in application.entities %}
+        <a class="nav-link" href="/static/{{entity.name|lowercase}}_page.html"><h5>{{entity.name|replace_}}</h5></a></li>
+        {% endfor %}
     </div>
     </body>
     <script src="/static/index.js"></script>

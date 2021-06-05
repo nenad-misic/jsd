@@ -209,6 +209,7 @@ class ExpressGenerator(Generator):
             repositoryTemplate = jinja_env.get_template(f'repository/{self.model.configObject.database}Repository.jinja')
             self.generateEntityTemplate(repositoryTemplate, f'express/repositories/{entity.name.lower()}_repository.js', entity)
 
-
-
-
+            doc_htmlTemplate = jinja_env.get_template('documentation/entityhtml.jinja')
+            self.generateEntityTemplate(doc_htmlTemplate, f'express/public/{entity.name.lower()}_page.html', entity)
+            doc_htmlTemplate = jinja_env.get_template('documentation/entityjs.jinja')
+            self.generateEntityTemplate(doc_htmlTemplate, f'express/public/{entity.name.lower()}_page.js', entity)
