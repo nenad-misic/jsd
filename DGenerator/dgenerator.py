@@ -139,3 +139,5 @@ if __name__ == "__main__":
 
     metamodel_export(entity_mm, 'metamodel.dot')
     model_export(application_model, 'model.dot')
+
+
