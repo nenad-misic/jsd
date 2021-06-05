@@ -8,7 +8,7 @@ var service = {
         // Validates entity and passes it to repository if valid. Throws exception if not valid >>> throw new Error('Error description');
         // TODO - validation
 
-        return "created {{entity.name|lower}}";
+        return repositories.{{entity.name|lower}}_repository.create(entity);
     },
     update: (entity) => {
         // Validates entity and passes it to repository if valid. Throws exception if not valid >>> throw new Error('Error description');
@@ -16,7 +16,7 @@ var service = {
         if (!entity.id)
             throw new Error('ID cannot be null or undefined')
 
-        return "updated {{entity.name|lower}}"
+        return repositories.{{entity.name|lower}}_repository.update(entity);
     },
     delete: (id) => {
         // Validates id and passes it to repository if valid. Throws exception if not valid >>> throw new Error('Error description');
@@ -24,7 +24,7 @@ var service = {
         if (!id)
             throw new Error('ID cannot be null or undefined');
 
-        return "deleted {{entity.name|lower}}"
+        return repositories.{{entity.name|lower}}_repository.delete(id);
     },
     exists: (id) => {
         // Validates id and passes it to repository if valid. Throws exception if not valid >>> throw new Error('Error description');
@@ -32,11 +32,11 @@ var service = {
         if (!id)
             throw new Error('ID cannot be null or undefined');
 
-        return "exists {{entity.name|lower}}"
+        return repositories.{{entity.name|lower}}_repository.exists(id);
     },
     count: () => {
         // Delegates to repository.
-        return "count {{entity.name|lower}}"
+        return repositories.{{entity.name|lower}}_repository.count();
     },
     findById: (id) => {
         // Validates id and passes it to repository if valid. Throws exception if not valid >>> throw new Error('Error description');
@@ -44,12 +44,11 @@ var service = {
         if (!id)
             throw new Error('ID cannot be null or undefined');
 
-        return "found by ID {{entity.name|lower}}"
+        return repositories.{{entity.name|lower}}_repository.findById(id);
     },
     getAll: () => {
         // Delegates to repository.
-
-        return "get all {{entity.name|lower}}"
+        return repositories.{{entity.name|lower}}_repository.getAll();
     },
 }
 
