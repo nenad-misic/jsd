@@ -1,6 +1,7 @@
 Application:
     'application' name=ID '{'
         config=Config
+        auth=Auth
         entities*=Entity
         relationships*=Relationship
     '}'
@@ -18,13 +19,26 @@ ConfigProp:
 ;
 
 ConfigPropName:
-   'baseName' | 'frontendPort' | 'frontend' | 'serverPort' | 'server' | 'database'
+    'baseName' | 'frontendPort' | 'frontend' | 'serverPort' | 'server' | 'database' | 'bootstrap' | 'authentication'
 ;
 
 PropValue:
     ID | INT
 ;
 
+Auth: 
+    'auth' '{'
+        authProps*=AuthProp
+    '}'
+;
+
+AuthProp:
+    authPropName=AuthPropName value=PropValue
+;
+
+AuthPropName:
+    'userEntity' | 'usernameProp' | 'passwordProp' | 'serverPort' | 'server' | 'database' | 'bootstrap' | 'authentication'
+;
 
 Entity:
     'entity' name=ID '{'

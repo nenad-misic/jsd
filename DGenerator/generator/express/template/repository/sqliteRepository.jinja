@@ -25,6 +25,11 @@ var repository = {
     getAll: () => {
         return base_{{entity.name|lower}}_repository.getAll();
     }
+    {% if entity.name == application.authObject.userEntity %}
+    findByUsernameField: (username) => {
+        return base_{{entity.name|lower}}_repository.findByUsernameField(username);
+    },
+    {% endif %}
 }
 
 module.exports = repository;

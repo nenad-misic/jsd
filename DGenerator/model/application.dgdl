@@ -6,8 +6,16 @@ application appl {
         server express
         serverPort 1337
         database sqlite
+        authentication jwt
+        bootstrap quartz
     }
     
+    auth {
+        userEntity User
+        usernameProp username
+        passwordProp password
+    }
+
     entity User { 
         u_id: integer primaryKey autoincrement,
         first_name : string required,
