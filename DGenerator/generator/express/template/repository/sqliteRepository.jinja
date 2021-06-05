@@ -22,9 +22,9 @@ var repository = {
     findById: (id) => {
         return base_{{entity.name|lower}}_repository.findById(id);
     },
-    getAll: (filter, sort, sortDirection) => {
-        return base_{{entity.name|lower}}_repository.getAll();
-    }
+    getAll: (filter, sort, sortDirection, page, pageSize) => {
+        return base_{{entity.name|lower}}_repository.getAll(filter, sort, sortDirection, page, pageSize);
+    },
     {% if entity.name == application.authObject.userEntity %}
     findByUsernameField: (username) => {
         return base_{{entity.name|lower}}_repository.findByUsernameField(username);
