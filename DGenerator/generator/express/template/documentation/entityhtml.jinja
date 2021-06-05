@@ -20,6 +20,44 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="entities" aria-expanded="false">Entities <span class="caret"></span></a>
+                            <div class="dropdown-menu" aria-labelledby="entities">
+                                {% for entity in application.entities %}
+                                <a class="dropdown-item" href="/static/{{entity.name|lowercase}}_page.html">{{entity.name|replace_}}</a>
+                                {% endfor %}
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="themes" aria-expanded="false">Theme <span class="caret"></span></a>
+                            <div class="dropdown-menu" aria-labelledby="themes">
+                                <a class="dropdown-item theme-change-button" id="cyborg_dark">Cyborg (Dark)</a>
+                                <a class="dropdown-item theme-change-button" id="darkly_dark">Darkly (Dark)</a>
+                                <a class="dropdown-item theme-change-button" id="slate_dark">Slate (Dark)</a>
+                                <a class="dropdown-item theme-change-button" id="solar_dark">Solar (Dark)</a>
+                                <a class="dropdown-item theme-change-button" id="superhero_dark">Superhero (Dark)</a>
+                                <a class="dropdown-item theme-change-button" id="vapor_dark">Vapor (Dark)</a>
+                                <a class="dropdown-item theme-change-button" id="cerulean_light">Cerulean (Light)</a>
+                                <a class="dropdown-item theme-change-button" id="cosmo_light">Cosmo (Light)</a>
+                                <a class="dropdown-item theme-change-button" id="flatly_light">Flatly (Light)</a>
+                                <a class="dropdown-item theme-change-button" id="journal_light">Journal (Light)</a>
+                                <a class="dropdown-item theme-change-button" id="litera_light">Litera (Light)</a>
+                                <a class="dropdown-item theme-change-button" id="lumen_light">Lumen (Light)</a>
+                                <a class="dropdown-item theme-change-button" id="lux_light">Lux (Light)</a>
+                                <a class="dropdown-item theme-change-button" id="materia_light">Materia (Light)</a>
+                                <a class="dropdown-item theme-change-button" id="minty_light">Minty (Light)</a>
+                                <a class="dropdown-item theme-change-button" id="morph_light">Morph (Light)</a>
+                                <a class="dropdown-item theme-change-button" id="pulse_light">Pulse (Light)</a>
+                                <a class="dropdown-item theme-change-button" id="quartz_light">Quartz (Light)</a>
+                                <a class="dropdown-item theme-change-button" id="sandstone_light">Sandstone (Light)</a>
+                                <a class="dropdown-item theme-change-button" id="simplex_light">Simplex (Light)</a>
+                                <a class="dropdown-item theme-change-button" id="sketchy_light">Sketchy (Light)</a>
+                                <a class="dropdown-item theme-change-button" id="spacelab_light">Spacelab (Light)</a>
+                                <a class="dropdown-item theme-change-button" id="united_light">United (Light)</a>
+                                <a class="dropdown-item theme-change-button" id="yeti_light">Yeti (Light)</a>
+                                <a class="dropdown-item theme-change-button" id="zephyr_light">Zephyr (Light)</a>
+                            </div>
+                        </li>
                     </ul>
                     <ul class="navbar-nav ms-md-auto">
                         <li class="nav-item">

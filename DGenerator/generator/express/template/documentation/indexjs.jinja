@@ -1,1 +1,45 @@
+function setTheme(theme_name) {
+    theme_bootstrap_name = theme_name.split('_')[0]
+    theme_accent = theme_name.split('_')[1]
+    if (theme_accent == 'dark') {
+        theme_highlight_name = 'androidstudio'
+    } else {
+        theme_highlight_name = 'github'
+    }
+
+    var elem = document.querySelector('#theme_css');
+    var elem2 = document.querySelector('#highlight_css');
+
+    var link = document.createElement('link');
+    link.setAttribute('id', 'theme_css');
+    link.setAttribute('rel', 'stylesheet');
+    link.setAttribute('href', `https://bootswatch.com/5/${theme_bootstrap_name}/bootstrap.css`);
+    document.head.appendChild(link);
+
+
+    var link2 = document.createElement('link');
+    link2.setAttribute('id', 'highlight_css');
+    link2.setAttribute('rel', 'stylesheet');
+    link2.setAttribute('href', `//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/${theme_highlight_name}.min.css`);
+    document.head.appendChild(link2);
+    
+    if (elem) elem.parentNode.removeChild(elem);
+    if (elem2) elem.parentNode.removeChild(elem2);
+}
+
+if (!localStorage.getItem('current_theme')) {
+    localStorage.setItem('current_theme', 'lumen_light')
+} 
+
+setTheme(localStorage.getItem('current_theme'))
+
+let theme_buttons = document.querySelectorAll('.theme-change-button');
+for (let btn of theme_buttons) {
+    btn.addEventListener('click', (event) => {
+        localStorage.setItem('current_theme', event.target.id)
+        setTheme(localStorage.getItem('current_theme'))
+    });
+}
+
+
 hljs.highlightAll();
