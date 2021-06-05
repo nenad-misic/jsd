@@ -22,7 +22,7 @@ var repository = {
     findById: (id) => {
         return base_{{entity.name|lower}}_repository.findById(id);
     },
-    getAll: () => {
+    getAll: (filter, sort, sortDirection) => {
         return base_{{entity.name|lower}}_repository.getAll();
     }
     {% if entity.name == application.authObject.userEntity %}

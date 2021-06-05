@@ -46,8 +46,16 @@ var service = {
 
         return repositories.{{entity.name|lower}}_repository.findById(id);
     },
-    getAll: () => {
+    getAll: (queryParams) => {
         // Delegates to repository.
+
+        filter = queryParams && queryParams.filter && JSON.parse(queryParams.filter) || null;
+        sort = queryParams && queryParams.sort || null;
+        sortDirection = queryParams && queryParams.sortDirection || "ASC";
+        page = queryParams && queryParams.page || 0;
+        pageSize = queryParams && queryParams.pageSize || 100
+
+        pageSize = Math.min(pageSize, 100)
         return repositories.{{entity.name|lower}}_repository.getAll();
     },
     findByUsernameField: (username) => {

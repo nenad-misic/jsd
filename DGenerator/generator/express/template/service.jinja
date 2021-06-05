@@ -22,8 +22,8 @@ var service = {
     findById: (id) => {
         return base_{{entity.name|lower}}_service.findById(id);
     },
-    getAll: () => {
-        return base_{{entity.name|lower}}_service.getAll();
+    getAll: (queryParams) => {
+        return base_{{entity.name|lower}}_service.getAll(queryParams);
     }
 }
 
