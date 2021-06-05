@@ -9,11 +9,15 @@ from classes.Property import Property
 from classes.Relationship import Relationship
 from classes.Config import Config
 from classes.ConfigProp import ConfigProp
+from classes.Auth import Auth
+from classes.AuthProp import AuthProp
 from classes.InjectedField import InjectedField
 
 def applicationToDto(model):
     configProps = [ConfigProp(configProp.configPropName, configProp.value) for configProp in model.config.configProps]
     config = Config(configProps)
+    authProps = [AuthProp(authProp.authPropName, authProp.value) for authProp in model.auth.authProps]
+    auth = Auth(authProps)
 
     entities = []
     for entity in model.entities:
@@ -36,5 +40,5 @@ def applicationToDto(model):
         target = next((entity for entity in entities if entity.name == relationship.target.name), None)
         relationships.append(Relationship(relationship.relationshipType, source, relationship.sourceInjectedField, target, relationship.targetInjectedField))
 
-    application = Application(model.name, config, entities, relationships)
+    application = Application(model.name, config, auth, entities, relationships)
     return application
