@@ -24,7 +24,12 @@ var service = {
     },
     getAll: (queryParams) => {
         return base_{{entity.name|lower}}_service.getAll(queryParams);
-    }
+    },
+    {% if entity.name == application.authObject.userEntity %}
+    findByUsernameField: (username) => {
+        return base_{{entity.name|lower}}_service.findByUsernameField(username);
+    },
+    {% endif %}
 }
 
 module.exports = service;
