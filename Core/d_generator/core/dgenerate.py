@@ -41,7 +41,7 @@ def get_generator(generator_name, plugin_group, plugin_params):
     for gen in generators:
         if gen.name == generator_name:
             return gen
-    return None
+    raise Exception(f'{plugin_group} {generator_name} is not supported. Choose one from list: {[gen.name for gen in generators]}')
 
 this_folder = dirname(__file__)
 # model_filename = "model/application.dgdl"
@@ -98,23 +98,23 @@ def get_entity_mm():
     return entity_mm
 
 def semantic_analysis(application_model):
-    supported_frontends = ['react']
-    if not application_model.configObject.frontend in supported_frontends:
-        raise Exception(f'Frontend {application_model.configObject.frontend} is not supported. Choose one from list: {supported_frontends}')
+    # supported_frontends = ['react']
+    # if not application_model.configObject.frontend in supported_frontends:
+    #     raise Exception(f'Frontend {application_model.configObject.frontend} is not supported. Choose one from list: {supported_frontends}')
 
     if application_model.configObject.frontendPort < 1024 or application_model.configObject.frontendPort > 49151:
         raise Exception(f'Frontend port {application_model.configObject.frontendPort} is not supported. Choose value between 1024 and 49151')
 
-    supported_servers = ['express']
-    if not application_model.configObject.server in supported_servers:
-        raise Exception(f'Server {application_model.configObject.server} is not supported. Choose one from list: {supported_servers}')
+    # supported_servers = ['express']
+    # if not application_model.configObject.server in supported_servers:
+    #     raise Exception(f'Server {application_model.configObject.server} is not supported. Choose one from list: {supported_servers}')
 
     if application_model.configObject.serverPort < 1024 or application_model.configObject.serverPort > 49151:
         raise Exception(f'Server port {application_model.configObject.serverPort} is not supported. Choose value between 1024 and 49151')
 
-    supported_dbs = ['sqlite']
-    if not application_model.configObject.database in supported_dbs:
-        raise Exception(f'Database {application_model.configObject.database} is not supported. Choose one from list: {supported_dbs}')    
+    # supported_dbs = ['sqlite']
+    # if not application_model.configObject.database in supported_dbs:
+    #     raise Exception(f'Database {application_model.configObject.database} is not supported. Choose one from list: {supported_dbs}')    
 
     supported_authentications = ['noAuth', 'jwt']
     if not application_model.configObject.authentication in supported_authentications:
@@ -165,13 +165,14 @@ def main():
     # react_generator = ReactGenerator(applicationToDto(application_model), srcgen_folder, abspath(model_filename))
     # react_generator.generate_code()
 
-    plugin_params = (applicationToDto(application_model), srcgen_folder, abspath(arguments['model_path']))
+    appDTO = applicationToDto(application_model)
+    plugin_params = (appDTO, srcgen_folder, abspath(arguments['model_path']))
     
-    db_generator = get_generator('sqlite', 'database_generator', plugin_params)
+    db_generator = get_generator(appDTO.configObject.database, 'database_generator', plugin_params)
     db_generator.generate_code()
-    backend_generator = get_generator('express', 'backend_generator', plugin_params)
+    backend_generator = get_generator(appDTO.configObject.server, 'backend_generator', plugin_params)
     backend_generator.generate_code()
-    frontend_generator = get_generator('react', 'frontend_generator', plugin_params)
+    frontend_generator = get_generator(appDTO.configObject.frontend, 'frontend_generator', plugin_params)
     frontend_generator.generate_code()
     
 
