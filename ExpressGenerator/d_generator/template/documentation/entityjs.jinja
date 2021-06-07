@@ -1,0 +1,117 @@
+let url = '/{{entity.name|lower}}'
+
+document.getElementById('getallreq').addEventListener('click', async (event) => {
+    let all_fields = document.querySelectorAll('.reqresponse');
+    for (let f of all_fields)  {
+        f.style.opacity = 0;
+        f.innerHTML = '';
+    }
+    let field = document.getElementById('getallreqresponse');
+    let data = (await axios.get(`${url}`, { params: JSON.parse(document.getElementById('getallcode').textContent) })).data;
+    field.innerHTML = `
+    <pre class="pre-scrollable col-12"><code class="language-json border border-1 border-primary">${JSON.stringify(data, null, 4)}</code></pre>
+    `
+    field.style.opacity = 1;
+    hljs.highlightAll();
+
+});
+document.getElementById('getidreq').addEventListener('click', async (event) => {
+    let all_fields = document.querySelectorAll('.reqresponse');
+    for (let f of all_fields)  {
+        f.style.opacity = 0;
+        f.innerHTML = '';
+    }
+    let field = document.getElementById('getidreqresponse');
+    obj = JSON.parse(document.getElementById('getidcode').textContent);
+    pk = obj.{{(entity|primaryKeyProp).name}}
+
+    let data = (await axios.get(`${url}/${pk}`)).data;
+    field.innerHTML = `
+    <pre class="pre-scrollable col-12"><code class="language-json border border-1 border-primary">${JSON.stringify(data, null, 4)}</code></pre>
+    `
+    field.style.opacity = 1;
+    hljs.highlightAll();
+
+});
+document.getElementById('existsreq').addEventListener('click', async (event) => {
+    let all_fields = document.querySelectorAll('.reqresponse');
+    for (let f of all_fields)  {
+        f.style.opacity = 0;
+        f.innerHTML = '';
+    }
+    let field = document.getElementById('existsreqresponse');
+    
+    obj = JSON.parse(document.getElementById('existscode').textContent);
+    pk = obj.{{(entity|primaryKeyProp).name}}
+
+    let data = (await axios.get(`${url}/exists/${pk}`)).data;
+    field.innerHTML = `
+    <pre class="pre-scrollable col-12"><code class="language-json border border-1 border-primary">${JSON.stringify(data, null, 4)}</code></pre>
+    `
+    field.style.opacity = 1;
+    hljs.highlightAll();
+
+});
+document.getElementById('countreq').addEventListener('click', async (event) => {
+    let all_fields = document.querySelectorAll('.reqresponse');
+    for (let f of all_fields)  {
+        f.style.opacity = 0;
+        f.innerHTML = '';
+    }
+    let field = document.getElementById('countreqresponse');
+    let data = (await axios.get(`${url}/count`)).data;
+    field.innerHTML = `
+    <pre class="pre-scrollable col-12"><code class="language-json border border-1 border-primary">${JSON.stringify(data, null, 4)}</code></pre>
+    `
+    field.style.opacity = 1;
+    hljs.highlightAll();
+
+});
+document.getElementById('deletereq').addEventListener('click', async (event) => {
+    let all_fields = document.querySelectorAll('.reqresponse');
+    for (let f of all_fields)  {
+        f.style.opacity = 0;
+        f.innerHTML = '';
+    }
+    let field = document.getElementById('deletereqresponse');
+    obj = JSON.parse(document.getElementById('deletecode').textContent);
+    pk = obj.{{(entity|primaryKeyProp).name}}
+    let data = (await axios.delete(`${url}/${pk}`)).data;
+    field.innerHTML = `
+    <pre class="pre-scrollable col-12"><code class="language-json border border-1 border-primary">${JSON.stringify(data, null, 4)}</code></pre>
+    `
+    field.style.opacity = 1;
+    hljs.highlightAll();
+
+});
+document.getElementById('addreq').addEventListener('click', async (event) => {
+    let all_fields = document.querySelectorAll('.reqresponse');
+    for (let f of all_fields)  {
+        f.style.opacity = 0;
+        f.innerHTML = '';
+    }
+    let field = document.getElementById('addreqresponse');
+    obj = JSON.parse(document.getElementById('addcode').textContent);
+    let data = (await axios.post(`${url}`, obj)).data;
+    field.innerHTML = `
+    <pre class="pre-scrollable col-12"><code class="language-json border border-1 border-primary">${JSON.stringify(data, null, 4)}</code></pre>
+    `
+    field.style.opacity = 1;
+    hljs.highlightAll();
+});
+document.getElementById('updatereq').addEventListener('click', async (event) => {
+    let all_fields = document.querySelectorAll('.reqresponse');
+    for (let f of all_fields)  {
+        f.style.opacity = 0;
+        f.innerHTML = '';
+    }
+    let field = document.getElementById('updatereqresponse');
+    obj = JSON.parse(document.getElementById('updatecode').textContent);
+    let data = (await axios.put(`${url}`, obj)).data;
+    field.innerHTML = `
+    <pre class="pre-scrollable col-12"><code class="language-json border border-1 border-primary">${JSON.stringify(data, null, 4)}</code></pre>
+    `
+    field.style.opacity = 1;
+    hljs.highlightAll();
+
+});
