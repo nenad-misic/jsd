@@ -43,9 +43,6 @@ def get_generator(generator_name, plugin_group, plugin_params):
             return gen
     raise Exception(f'{plugin_group} {generator_name} is not supported. Choose one from list: {[gen.name for gen in generators]}')
 
-this_folder = dirname(__file__)
-# model_filename = "model/application.dgdl"
-# metamodel_filename = "metamodel/grammar.tx"
     
 def get_entity_mm():
 
@@ -98,23 +95,14 @@ def get_entity_mm():
     return entity_mm
 
 def semantic_analysis(application_model):
-    # supported_frontends = ['react']
-    # if not application_model.configObject.frontend in supported_frontends:
-    #     raise Exception(f'Frontend {application_model.configObject.frontend} is not supported. Choose one from list: {supported_frontends}')
 
     if application_model.configObject.frontendPort < 1024 or application_model.configObject.frontendPort > 49151:
         raise Exception(f'Frontend port {application_model.configObject.frontendPort} is not supported. Choose value between 1024 and 49151')
 
-    # supported_servers = ['express']
-    # if not application_model.configObject.server in supported_servers:
-    #     raise Exception(f'Server {application_model.configObject.server} is not supported. Choose one from list: {supported_servers}')
 
     if application_model.configObject.serverPort < 1024 or application_model.configObject.serverPort > 49151:
         raise Exception(f'Server port {application_model.configObject.serverPort} is not supported. Choose value between 1024 and 49151')
-
-    # supported_dbs = ['sqlite']
-    # if not application_model.configObject.database in supported_dbs:
-    #     raise Exception(f'Database {application_model.configObject.database} is not supported. Choose one from list: {supported_dbs}')    
+ 
 
     supported_authentications = ['noAuth', 'jwt']
     if not application_model.configObject.authentication in supported_authentications:
@@ -139,43 +127,43 @@ def semantic_analysis(application_model):
 
 def main():
 
+    # get input arguments
     parser = argparse.ArgumentParser(prog='d_generator')
     parser.add_argument('-m', nargs='?', help='Path to application dgdl model file')
-    parser.add_argument('-s', nargs='?', help='Path to desired generation directory')
+    parser.add_argument('-s', nargs='?', help='Path to desired generation source directory')
 
     args = parser.parse_args()
 
     arguments = {'model_path': args.m,
                 'srcgen': args.s}
 
+    # create metamodel and model
     entity_mm = get_entity_mm()
     application_model = entity_mm.model_from_file(arguments['model_path'])
     semantic_analysis(application_model)
 
+    # find or create source directory
     srcgen_folder = arguments['srcgen']
     if not exists(srcgen_folder):
         mkdir(srcgen_folder)
 
-    # sqlite_generator = SqliteGenerator(applicationToDto(application_model), srcgen_folder, abspath(model_filename))
-    # sqlite_generator.generate_code()
-
-    # express_generator = ExpressGenerator(applicationToDto(application_model), srcgen_folder, abspath(model_filename))
-    # express_generator.generate_code()
-
-    # react_generator = ReactGenerator(applicationToDto(application_model), srcgen_folder, abspath(model_filename))
-    # react_generator.generate_code()
-
+    # create application object
     appDTO = applicationToDto(application_model)
     plugin_params = (appDTO, srcgen_folder, abspath(arguments['model_path']))
     
+    # run database generator
     db_generator = get_generator(appDTO.configObject.database, 'database_generator', plugin_params)
     db_generator.generate_code()
+    
+    # run backend generator
     backend_generator = get_generator(appDTO.configObject.server, 'backend_generator', plugin_params)
     backend_generator.generate_code()
+    
+    # run frontend generator
     frontend_generator = get_generator(appDTO.configObject.frontend, 'frontend_generator', plugin_params)
     frontend_generator.generate_code()
     
-
+    # export model and metamodel description files
     metamodel_export(entity_mm, 'metamodel.dot')
     model_export(application_model, 'model.dot')
     

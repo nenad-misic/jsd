@@ -16,7 +16,6 @@ from d_generator.core.classes.ParameterizedConstraint import ParameterizedConstr
 from d_generator.core.classes.Property import Property
 from d_generator.core.classes.Relationship import Relationship
 
-this_folder = dirname(__file__)
 
 def _defaultValueOfType(type):
     types = {
