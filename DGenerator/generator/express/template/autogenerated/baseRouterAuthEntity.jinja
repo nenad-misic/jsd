@@ -14,7 +14,7 @@ var router = express.Router()
 
 // Get all entities
 router.get('/', async function (req, res, next) {
-    let {{entity.name|lower}}Entities = await services.{{entity.name|lower}}_service.getAll().catch(next);
+    let {{entity.name|lower}}Entities = await services.{{entity.name|lower}}_service.getAll(req.query).catch(next);
     res.status(200).json({{entity.name|lower}}Entities);
 });
 
