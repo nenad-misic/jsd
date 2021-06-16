@@ -10,5 +10,6 @@ setup(
             'sqlite = d_generator.sqlite_generator:SQLiteGenerator'
         ],
     },
-    zip_safe=True
+    include_package_data=True,
+    package_data={'': ['template/*.jinja']}
 )

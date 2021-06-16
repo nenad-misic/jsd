@@ -4,13 +4,11 @@ setup(
     version="0.1",
     packages=find_packages(),
     namespace_packages=['d_generator'],
-    provides=['d_generator.core',
-              ],
+    provides=['d_generator.core'],
     entry_points = {
         'console_scripts':
-            ['frontend_generator=d_generator.core.generate:generate_frontend',
-            'backend_generator=d_generator.core.generate:generate_backend',
-            'database_generator=d_generator.core.generate:generate_database']
+            ['generate_main=d_generator.core.dgenerate:main']
     },
-    zip_safe=True
+    include_package_data=True,
+    package_data={'': ['metamodel/grammar.tx']}
 )
