@@ -104,16 +104,31 @@ var repository = {
         await db.close()
         return result;
     },
-    getAll: async () => {
+    getAll: async (filter, sort, sortDirection, page, pageSize) => {
         // Returns all entites from db table
         const db = await open({
             filename: '../database.db',
             driver: sqlite3.Database
         });
-        const stmt = await db.prepare('SELECT * FROM {{entity.name}}');
+        query = formatAdvancedQuery(filter, sort, sortDirection, page, pageSize);
 
+        const stmt = await db.prepare(query);
 
         let result = await stmt.all();
+        await stmt.finalize();
+
+        await db.close()
+        return result;
+    },
+    findByUsernameField: async (username) => {
+        const db = await open({
+            filename: '../database.db',
+            driver: sqlite3.Database
+        });
+
+        const stmt = await db.prepare('SELECT * FROM {{entity.name}} WHERE {{entity._username}} = @{{entity._username}}', {'@{{entity._username}}': username });
+
+        let result = await stmt.get();
         await stmt.finalize();
 
         await db.close()

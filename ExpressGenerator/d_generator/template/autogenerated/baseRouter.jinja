@@ -3,18 +3,13 @@
 
 var express = require('express')
 var services = require('../../services')
-var environment = require('../../environment/environment')
-const jwt = require('jsonwebtoken');
-
-var bcrypt = require('bcryptjs');
-var salt = bcrypt.genSaltSync(10);
 
 
 var router = express.Router()
 
 // Get all entities
 router.get('/', async function (req, res, next) {
-    let {{entity.name|lower}}Entities = await services.{{entity.name|lower}}_service.getAll().catch(next);
+    let {{entity.name|lower}}Entities = await services.{{entity.name|lower}}_service.getAll(req.query).catch(next);
     res.status(200).json({{entity.name|lower}}Entities);
 });
 
@@ -24,7 +19,9 @@ router.get('/exists/:id', async function (req, res, next) {
 
     if (!exists){
         next(new Error('{{entity.name}} with id ' + req.params.id + ' doesn\'t exist'));
+        return
     }
+
     res.status(200).json({ exists });
 });
 
@@ -51,8 +48,7 @@ router.get('/:id', async function (req, res, next) {
 
 // Create new
 router.post('/', async function (req, res, next) {
-    var hash = bcrypt.hashSync(req.body.{{entity._password}}, salt)
-    req.body.{{entity._password}} = hash
+    
     let result = await services.{{entity.name|lower}}_service.create(req.body).catch(next);
 
     res.status(201).json(result);
@@ -64,29 +60,5 @@ router.put('/', async function (req, res, next) {
 
     res.status(200).json(result);
 });
-
-router.post('/login', async function (req, res, next) {
-    let creds = req.body;
-    let user = await services.{{entity.name|lower}}_service.findByUsernameField(creds.{{entity._username}}).catch(next);
-
-    if (!user ){
-        next(new Error('Invalid credentials'));
-        return;
-    }
     
-    let valid = await bcrypt.compare(creds.{{entity._password}}, user.{{entity._password}}).catch(next);
-    if (!valid){
-        next(new Error('Invalid password'));
-        return;
-    }
-
-
-    delete user.{{entity._password}};
-
-    const token = jwt.sign(user, environment.secret_key);
-
-    res.status(200).json({ token });
-});
-
-
 module.exports = router;

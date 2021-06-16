@@ -1,17 +1,17 @@
-from classes.Application import Application
-from classes.SimpleType import SimpleType
-from classes.ConcreteNonParameterizedConstraint import ConcreteNonParameterizedConstraint
-from classes.ConcreteParameterizedConstraint import ConcreteParameterizedConstraint
-from classes.Entity import Entity
-from classes.NonParameterizedConstraint import NonParameterizedConstraint
-from classes.ParameterizedConstraint import ParameterizedConstraint
-from classes.Property import Property
-from classes.Relationship import Relationship
-from classes.Config import Config
-from classes.ConfigProp import ConfigProp
-from classes.Auth import Auth
-from classes.AuthProp import AuthProp
-from classes.InjectedField import InjectedField
+from d_generator.core.classes.Application import Application
+from d_generator.core.classes.SimpleType import SimpleType
+from d_generator.core.classes.ConcreteNonParameterizedConstraint import ConcreteNonParameterizedConstraint
+from d_generator.core.classes.ConcreteParameterizedConstraint import ConcreteParameterizedConstraint
+from d_generator.core.classes.Entity import Entity
+from d_generator.core.classes.NonParameterizedConstraint import NonParameterizedConstraint
+from d_generator.core.classes.ParameterizedConstraint import ParameterizedConstraint
+from d_generator.core.classes.Property import Property
+from d_generator.core.classes.Relationship import Relationship
+from d_generator.core.classes.Config import Config
+from d_generator.core.classes.ConfigProp import ConfigProp
+from d_generator.core.classes.Auth import Auth
+from d_generator.core.classes.AuthProp import AuthProp
+from d_generator.core.classes.InjectedField import InjectedField
 
 def applicationToDto(model):
     configProps = [ConfigProp(configProp.configPropName, configProp.value) for configProp in model.config.configProps]
