@@ -7,7 +7,7 @@ setup(
     provides=['d_generator.core'],
     entry_points = {
         'console_scripts':
-            ['generate_main=d_generator.core.dgenerate:main']
+            ['degenerate=d_generator.core.dgenerate:main']
     },
     include_package_data=True,
     package_data={'': ['metamodel/grammar.tx']}
