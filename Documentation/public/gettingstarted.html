@@ -1,0 +1,175 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="/public/css/index.css">
+        <link rel="stylesheet" href="https://bootswatch.com/4/slate/bootstrap.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+            <a class="navbar-brand" href="/">DGenerator</a>
+            <button class="navbar-toggler border" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link px-4" href="/public/gettingstarted.html">Getting started</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-4" href="/public/about.html">About</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="mt-5 pt-5 container-fluid">
+            <div class="row">
+                <div class="col-8 offset-2">
+                    <h1 class="text-light">DGenerator Domain Language (DGDL) - Getting Started</h1>
+                    <br><br>
+                    <h2 class="text-light">Summary</h2>
+                    <br>
+        
+                    <p>In this page, you’ll learn about the DGDL and how to create applications and everything around them.</p>
+        
+                    <ol>
+                        <li><a href="#generatingContent">Generating content</a></li>
+                        <li><a href="#applications">Applications</a></li>
+                        <li><a href="#entities">Entities</a></li>
+                        <li><a href="#fields">Fields</a></li>
+                        <li><a href="#relationships">Relationships</a></li>
+                    </ol>
+        
+                    <br>
+                    <hr>
+                    <br>
+        
+                    <h2 id="generatingContent">Generating content</h2>
+                    <br>
+        
+                    <p>
+                        You can use DGDL files to generate entities:
+                    </p>
+                    <ul>
+                        <li>Create a file with the extension ‘.dgdl'</li>
+                        <li>Declare your applications, entities, fields and relationships</li>
+                        <li>To create the application run <code>python dgenerator.py my_file.dgdl</code></li>
+                    </ul>
+        
+                    <br>
+                    <hr>
+                    <br>
+        
+        
+                    <h2 id="applications">Generating applications</h2>
+                    <br>
+                    
+                    <p>As we’ve seen in the previous example, generating applications is quite straightforward, let’s take the previous example and add more things to it:</p>
+        
+                    <pre><code>application appl {
+    config {
+        frontend react
+        server express
+        database sqlite
+        frontendPort 3000
+        serverPort 1337
+        authentication jwt
+    }
+}</code></pre>
+        
+                    <p>
+                        Let’s break it down:
+                    </p>
+        
+                    <ul>
+                        <li><code>application</code> is the keyword to say you want to declare an application, followed by application name: <code>appl</code></li>
+                        <li><code>config</code> to say that you want to specify the configuration
+                            <ul><li>we’ll later see that you can also declare entities in applications</li></ul>
+                        </li>
+                        <li><code>frontend</code>, <code>server</code>, etc. are keywords to tweak the application</li>
+        
+                    </ul>
+        
+                    <p>This is how you create an application using the DGDL. To see all supported application options, contact authors.</a></p>
+        
+        
+                    
+                    <br>
+                    <hr>
+                    <br>
+        
+                    <h2 id="entities">Generating entities</h2>
+                    <br>
+        
+                    <p>Generating entities is a bit less straightforward. You can also contact authors to know more about what you can do with entities.</p>
+        
+                    <br><h3 class="text-light">Generating a basic entity</h3>
+                    <br>
+        
+                    <pre><code>entity User {}</code></pre>
+        
+                    <p>This entity doesn’t have fields. This is the simplest way possible to declare an entity.</p>
+                                       
+        
+                    <br>
+                    <hr>
+                    <br>
+        
+                    <h2 id="fields">Generating fields</h2>
+                    <br>
+                    <p>Fields are declared in entities, by specifying a body to an entity:</p>
+                    <pre><code>entity Car {
+    id: integer primaryKey,
+    brand: string,
+    model: string,
+}</code></pre>
+                    <p>There are more than these two types. Contact authors to learn about them.</a></p>
+        
+        
+                    <br><h3 class="text-light">Adding validations and other constraints</h3>
+                    <br>
+        
+                    <p>The same way we’ve added comments to entities, we can add comments to fields:</p>
+                    <pre><code>entity Car {
+    id: integer primaryKey autoincrement,
+    brand: string required,
+    model: string required,
+    plateNumber: string unique required min(4) max(9)
+}</code></pre>
+        
+                    <p>Validations depend on the field type, and you can ask authors to learn more about that.</a></p>
+        
+                    <br>
+                    <hr>
+                    <br>
+        
+                    <h2 id="relationships">Generating relationships</h2>
+        
+                    <br>
+                    <p>Relationships between entities are also available and are declared with the <code>relationship</code> keyword.</p>
+        
+                    <pre><code>entity Car {
+    c_id: integer primaryKey
+}
+entity Driver {
+    d_id: integer primaryKey
+}
+
+relationship OneToMany { Driver Car{driver_id} }
+</code></pre>
+                    <p>Here’s what we can see:</p>
+                    <ul>
+                        <li><code>OneToMany</code> is the relationship type <ul><li>there are also <code>OneToOne</code> and <code>ManyToMany</code></li></ul></li>
+                        <li>we declare the source and the destination of the relationship (from <code>A</code> to <code>B</code>)</li>
+                        <li>we also declare the injected fields inside entity (<code>driver_id</code> in <code>Car</code>) <ul><li>this means that Car entity will have driver_id field referencing Driver entity</li></ul></li>
+                    </ul>
+        
+                    <p>To know more about relationships, you can contact authors.</p>
+                    
+                   
+                </div>
+            </div>
+        </div>
+        
+    </body>
+</html>

@@ -92,3 +92,8 @@ SimpleType:
 Literal:
     INT | STRING | BOOL | FLOAT
 ;
+
+
+Comment:
+    /\/\/.*$/
+;
