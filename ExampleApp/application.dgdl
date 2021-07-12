@@ -9,6 +9,9 @@ application appl {
         authentication jwt
         bootstrap quartz
     }
+
+    //example  comment
+
     
     auth {
         userEntity User
