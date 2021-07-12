@@ -26,6 +26,7 @@ application appl {
         username : string required min(6) max(30) unique,
         password : string required min(10) max(30) strongPasswordPattern
     }
+    
     entity Role {
         r_id: integer primaryKey autoincrement,
         role_name : string required
