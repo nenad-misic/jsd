@@ -56,7 +56,7 @@ var service = {
         pageSize = queryParams && queryParams.pageSize || 100
         
         pageSize = Math.min(pageSize, 100)
-        return repositories.{{entity.name|lower}}_repository.getAll();
+        return repositories.{{entity.name|lower}}_repository.getAll(filter, sort, sortDirection, page, pageSize);
     },
 }
 

@@ -4,7 +4,7 @@ application appl {
         frontend react
         frontendPort 3000
         server express
-        serverPort 1337
+        serverPort 1339
         database sqlite
         authentication jwt
         bootstrap quartz
