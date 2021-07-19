@@ -22,7 +22,7 @@ from d_generator.core.classes.InjectedField import InjectedField
 
 from d_generator.core.mapper.ApplicationMapper import applicationToDto
 
-from textx import metamodel_from_file, metamodel_from_str
+from textx import metamodel_from_file, metamodel_from_str, LanguageDesc, GeneratorDesc
 from textx.export import metamodel_export, model_export
 
 def load_plugins(plugin_group, plugin_params):
@@ -94,6 +94,11 @@ def get_entity_mm():
 
     return entity_mm
 
+dgenerate_lang = LanguageDesc('dgenerate_language',
+                           pattern='*.dgdl',
+                           description='Entity-relationship language',
+                           metamodel=get_entity_mm)
+
 def semantic_analysis(application_model):
 
     if application_model.configObject.frontendPort < 1024 or application_model.configObject.frontendPort > 49151:
@@ -124,6 +129,35 @@ def semantic_analysis(application_model):
     if not application_model.authObject.passwordProp in authEntityFields:
         raise Exception(f'Authentication entity password property{ application_model.authObject.passwordProp} is not defined. Choose one from list: {authEntityFields}')
     
+
+def dgenerate(metamodel, model, output_path, overwrite, debug, **custom_args):
+    # find or create source directory
+    srcgen_folder = output_path
+    if not exists(srcgen_folder):
+        mkdir(srcgen_folder)
+
+    # create application object
+    appDTO = applicationToDto(model)
+    plugin_params = (appDTO, srcgen_folder, abspath(custom_args['model_path']))
+    
+    # run database generator
+    db_generator = get_generator(appDTO.configObject.database, 'database_generator', plugin_params)
+    db_generator.generate_code()
+    
+    # run backend generator
+    backend_generator = get_generator(appDTO.configObject.server, 'backend_generator', plugin_params)
+    backend_generator.generate_code()
+    
+    # run frontend generator
+    frontend_generator = get_generator(appDTO.configObject.frontend, 'frontend_generator', plugin_params)
+    frontend_generator.generate_code()
+
+webapp_dgenerator = GeneratorDesc(
+    language='dgenerate_language',
+    target='javascript',
+    description='Entity-relationship to web app generator',
+    generator=dgenerate)
+
 
 def main():
 
