@@ -1,4 +1,4 @@
-pip uninstall d-generator-core
-pip uninstall express-generator
-pip uninstall react-generator
-pip uninstall sqlite-generator
+pip uninstall d-generator-core -y
+pip uninstall express-generator -y
+pip uninstall react-generator -y
+pip uninstall sqlite-generator -y
