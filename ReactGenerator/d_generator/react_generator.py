@@ -5,6 +5,7 @@ import pkg_resources
 
 import jinja2
 
+
 from d_generator.core.generator import Generator 
 
 from d_generator.core.classes.SimpleType import SimpleType
@@ -62,7 +63,14 @@ class ReactGenerator(Generator):
         with open(join(self.srcgen_folder, filename), 'w') as f:
             f.write('')
 
+    def prepare_model(self):
+        supported_authentications = ['noAuth', 'jwt']
+        if not self.model.configObject.authentication in supported_authentications:
+            raise Exception(f'Authentication {self.model.configObject.authentication} is not supported. Choose one from list: {supported_authentications}')
+        
+
     def generate_code(self):
+        self.prepare_model()
 
         jinja_env = jinja2.Environment(
             loader=jinja2.FunctionLoader(load_template),
@@ -139,6 +147,30 @@ class ReactGenerator(Generator):
         self.generateFolder('react/src/Welcome')
         template = jinja_env.get_template('Components/Welcome.jinja')
         self.generateModelTemplate(template, 'react/src/Welcome/Welcome.js')
+
+        # Generating src/Login
+        self.generateFolder('react/src/Login')
+        template = jinja_env.get_template('Components/Login.jinja')
+        self.generateModelTemplate(template, 'react/src/Login/Login.js')
+        
+        # Generating src/Register
+        authEntity = [ent for ent in self.model.entities if ent.name == self.model.authObject.userEntity][0]
+        self.generateFolder('react/src/Register')
+        template = jinja_env.get_template('Components/Register.jinja')
+        self.generateEntityTemplate(template, 'react/src/Register/Register.js', authEntity)
+
+
+        # Generating src/Shared/Toast
+        self.generateFolder('react/src/Shared')
+        template = jinja_env.get_template('Components/Toast.jinja')
+        self.generateModelTemplate(template, 'react/src/Shared/Toast.js')
+
+
+        # Generating authService
+        self.generateFolder('react/src/Services/authentication')
+        template = jinja_env.get_template(f'Services/authService/{self.model.configObject.authentication}AuthService.jinja')
+        self.generateModelTemplate(template, f'react/src/Services/authentication/AuthService.js')
+
 
         for entity in self.model.entities:
 
