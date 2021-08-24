@@ -1,4 +1,4 @@
-# Generisanje Web aplikacije pomoću jezika specifičnog za domen
+# Generating Web applications using a DSL
 
 ## Prerequisites
 - Python 3
@@ -37,20 +37,22 @@ Example application model can be found in ./ExampleApp/application.dgdl
 **Bolded** features are implemented.
 
 ### Must have
-- **Entiteti i veze medju entitetima**
-- **CRUD backend aplikacija**(Python ili **Node.js**)
-- **Servisi i model frontend aplikacije** (Angular ili **React**)
+- **Entities and relationships**
+- **CRUD backend app**(Python or **Node.js**)
+- **Services and model for frontend app** (Angular or **React**)
 - **SQLite**
-- **Odvajanje generisanog koda od korisničkog (apstraktne i nasleđene klase)**
+- **Separating generated from user written code (abstract and inherited classes)**
 ### Nice to have
-- **ACL**, sa definisanjem rola i pristupima
-- Napredni *endpoint*-ovi (Nalik JPA)
+- **ACL**, with roles and access control
+- Advanced *endpoints* (like JPA)
 - **Arhitektura zasnovana na *plugin*-ima**
-- **Search, filter, pagining, sort kroz query parametre**
-- **Generisanje komentara**
-### Cound have
+- ***Plugin* based architecture**
+- **Search, filter, paging, sort through query parameters**
+- **Comment generation**
+### Could have
 - **Dokumentcija generisanog API-ja**
-- Izbor tehnologije za backend/frontend aplikaciju
+- **Generated API documentation**
+- Technology choice for backend/frontend apps
 ### Won't have
-- Grafički editor za JSD
-- Plugin za VScode
+- GUI for DSL
+- VSCode plugin
