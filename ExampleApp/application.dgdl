@@ -22,7 +22,7 @@ application appl {
     entity User { 
         u_id: integer primaryKey autoincrement,
         first_name : string required,
-        last_name : string required unique unique unique unique,
+        last_name : string required unique,
         username : string required min(6) max(30) unique,
         password : string required min(10) max(30) strongPasswordPattern
     }
